@@ -1,73 +1,87 @@
-# Welcome to your Lovable project
+# ✅ 웹 부트캠프 모집 준비 커뮤니티 서비스 (MVP 기획)
 
-## Project info
+# 👨‍💻 배포 : 커뮤니티 서비스(https://bootcamp-buddy-up.lovable.app/)
 
-**URL**: https://lovable.dev/projects/032d2ff8-e7a6-4bcc-bd05-0cbebf1e26f9
+---
 
-## How can I edit this code?
+## 👤 페르소나
 
-There are several ways of editing your application.
+| 항목 | 내용 |
+| --- | --- |
+| 이름 / 나이 | 장재현 / 28세 |
+| 직업 | IT 회사 백엔드 개발자 (이직 준비 중) |
+| 라이프스타일 | 평일엔 출퇴근, 주말과 밤시간에 부트캠프 준비 |
+| 목표 | 부트캠프 전형(코딩테스트, 면접 등)을 동료들과 함께 실시간으로 준비하고 싶다 |
+| 니즈 | 구조화된 준비 공간, 실시간 소통 기능, 선배와의 정보 교류 |
+| 페인 포인트 | 정보는 흩어져 있고, Discord는 분산돼 있어 효율적인 소통이 어려움 |
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/032d2ff8-e7a6-4bcc-bd05-0cbebf1e26f9) and start prompting.
+## 📖 사용자 시나리오 & 스토리
 
-Changes made via Lovable will be committed automatically to this repo.
+### 🧩 상황
 
-**Use your preferred IDE**
+김태정은 웹 부트캠프에 관심이 있어 서비스에 접속했다.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+“우아한테크코스” 상세 페이지에 들어가 **코딩테스트 준비 스터디룸**에 참여한다.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+특정 인원이 모여 채팅방이 열리고, 실시간 채팅과 화면 공유로 스터디가 시작된다.
 
-Follow these steps:
+### 📌 시나리오 흐름
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+1. 홈 화면에서 다양한 부트캠프를 탐색
+2. "우아한테크코스" 상세 페이지 진입
+3. 두 가지 메뉴 확인:
+    
+    - [스터디룸] 코딩테스트, 면접 준비
+    
+    - [커피챗] 졸업생과 1:1 예약(실시간 후기 혹은 합격 비결 제공)
+    
+4. “코딩테스트 스터디룸”에서 방 생성 또는 입장
+5. 참여 인원이 특정 인원 수 이상이면 채팅방 자동 생성
+6. 채팅, 화면 공유, 음성 통화 (모두 Mock)로 협업 시작
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+---
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 🧠 사용자 스토리
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+> “부트캠프 준비생으로서, 전형별로 구조화된 스터디 공간에서
+> 
+> 
+> 다른 지원자들과 실시간으로 협업하고 싶습니다.
+> 
+> 그래서 혼자 공부하는 불안감을 줄이고 효율을 높일 수 있습니다.”
+> 
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## ✅ 인수 조건 (Acceptance Criteria)
 
-**Use GitHub Codespaces**
+| Given | When | Then |
+| --- | --- | --- |
+| 사용자가 홈에 접속 | 부트캠프 리스트를 본다 | 3초 이내에 카드 형태로 렌더링됨 |
+| 특정 부트캠프 상세 페이지 접근 | "스터디룸", "커피챗" 메뉴 클릭 | 각 탭별 내용이 2초 이내 표시됨 |
+| 스터디룸에서 스터디 생성 | 3명 이상 입장 시 | 자동으로 채팅방 열림 |
+| 채팅방에 입장 | 채팅, 화면 공유, 통화 버튼 클릭 시 | 각 기능이 즉시 UI에 반영됨 (Mock 기준) |
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+---
 
-## What technologies are used for this project?
+## 🌟 핵심 가치 제안
 
-This project is built with:
+| 핵심 기능 | 설명 |
+| --- | --- |
+| 부트캠프 중심 구조 | 프로그램별로 스터디룸 구성, 목적에 맞게 학습 가능 |
+| 실시간 협업 기능 | 채팅, 화면 공유, 음성 통화가 웹 내에 통합 |
+| 졸업생 연결 기능 | 실제 졸업생과의 커피챗으로 실전 조언 가능 |
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+---
 
-## How can I deploy this project?
+## 🔧 핵심 기능 (Mock 기반)
 
-Simply open [Lovable](https://lovable.dev/projects/032d2ff8-e7a6-4bcc-bd05-0cbebf1e26f9) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+| 기능 | 설명 |
+| --- | --- |
+| 부트캠프 리스트 페이지 (`index.html`) | 부트캠프 카드 UI 렌더링 |
+| 부트캠프 상세 페이지 (`bootcamp.html`) | ① 소개 탭 ② 스터디룸 탭 ③ 커피챗 탭 |
+| 스터디룸 탭 | 단계별(코테/면접) 필터 → 스터디 생성 or 입장 |
+| 채팅방 (`chatroom.html`) | 채팅, 화면 공유 (`getDisplayMedia()`), 통화 버튼 (오디오 피드백) |
+| 커피챗 탭 | 졸업생 리스트 → 시간 선택 → 예약 alert("예약 완료!") |
