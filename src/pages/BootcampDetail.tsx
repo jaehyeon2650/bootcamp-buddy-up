@@ -24,6 +24,8 @@ const BootcampDetail = () => {
     }
   };
 
+const [stageFilter, setStageFilter] = useState("전체");
+  
   const studyRooms = [
     {
       id: "room1",
@@ -42,8 +44,30 @@ const BootcampDetail = () => {
       maxParticipants: 4,
       status: "waiting",
       nextSession: "20:30"
+    },
+    {
+      id: "room3",
+      title: "자기소개서 첨삭 스터디",
+      stage: "자기소개서",
+      participants: 1,
+      maxParticipants: 3,
+      status: "waiting",
+      nextSession: "18:00"
+    },
+    {
+      id: "room4",
+      title: "코딩테스트 문제 풀이",
+      stage: "코딩테스트",
+      participants: 4,
+      maxParticipants: 4,
+      status: "active",
+      nextSession: "20:00"
     }
   ];
+
+  const filteredStudyRooms = studyRooms.filter(room => 
+    stageFilter === "전체" || room.stage === stageFilter
+  );
 
   const alumni = [
     {
@@ -138,8 +162,27 @@ const BootcampDetail = () => {
           </TabsContent>
 
           <TabsContent value="study" className="space-y-6">
+            {/* Stage Filter */}
+            <div className="flex justify-center mb-6">
+              <div className="flex bg-gray-100 rounded-lg p-1">
+                {["전체", "코딩테스트", "면접", "자기소개서"].map((stage) => (
+                  <button
+                    key={stage}
+                    onClick={() => setStageFilter(stage)}
+                    className={`px-4 py-2 rounded-md transition-all duration-200 ${
+                      stageFilter === stage
+                        ? "bg-white text-blue-600 shadow-sm font-semibold"
+                        : "text-gray-600 hover:text-gray-900"
+                    }`}
+                  >
+                    {stage}
+                  </button>
+                ))}
+              </div>
+            </div>
+            
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {studyRooms.map((room) => (
+              {filteredStudyRooms.map((room) => (
                 <Card key={room.id} className="hover:shadow-lg transition-shadow">
                   <CardHeader>
                     <div className="flex justify-between items-start">
@@ -186,6 +229,9 @@ const BootcampDetail = () => {
                   </Button>
                   <Button variant="outline" onClick={() => createStudyRoom('면접')}>
                     면접 스터디
+                  </Button>
+                  <Button variant="outline" onClick={() => createStudyRoom('자기소개서')}>
+                    자기소개서 스터디
                   </Button>
                 </div>
               </CardContent>

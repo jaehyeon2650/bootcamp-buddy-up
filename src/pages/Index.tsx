@@ -72,15 +72,17 @@ const Index = () => {
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
-                <Users className="w-5 h-5 text-white" />
+            <div className="flex justify-between items-center">
+              <div className="flex items-center space-x-2">
+                <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
+                  <Users className="w-5 h-5 text-white" />
+                </div>
+                <h1 className="text-2xl font-bold text-gray-900">부트캠프 버디업</h1>
               </div>
-              <h1 className="text-2xl font-bold text-gray-900">부트캠프 버디업</h1>
+              <Button variant="outline" onClick={() => navigate("/profile")}>
+                내 프로필
+              </Button>
             </div>
-            <Button variant="outline">로그인</Button>
-          </div>
         </div>
       </header>
 
