@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const Index = () => {
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState("recruiting");
   
   const bootcamps = [
     {
@@ -17,7 +18,9 @@ const Index = () => {
       stages: ["코딩테스트", "면접"],
       studyRooms: 12,
       activeUsers: 45,
-      nextDeadline: "2025-07-15"
+      nextDeadline: "2025-07-15",
+      status: "모집 중",
+      popularity: 5
     },
     {
       id: "ssafy",
@@ -26,7 +29,9 @@ const Index = () => {
       stages: ["적성검사", "면접"],
       studyRooms: 8,
       activeUsers: 32,
-      nextDeadline: "2025-08-01"
+      nextDeadline: "2025-08-01",
+      status: "모집 중",
+      popularity: 4
     },
     {
       id: "boostcamp",
@@ -35,9 +40,32 @@ const Index = () => {
       stages: ["코딩테스트", "프로젝트", "면접"],
       studyRooms: 15,
       activeUsers: 67,
-      nextDeadline: "2025-07-20"
+      nextDeadline: "2025-07-20",
+      status: "모집 예정",
+      popularity: 5
+    },
+    {
+      id: "42seoul",
+      name: "42 서울",
+      description: "혁신적인 소프트웨어 교육",
+      stages: ["라피신", "온라인 테스트"],
+      studyRooms: 20,
+      activeUsers: 89,
+      nextDeadline: "2025-09-01",
+      status: "모집 예정",
+      popularity: 3
     }
   ];
+
+  const filteredBootcamps = bootcamps.filter(bootcamp => {
+    if (activeTab === "recruiting") return bootcamp.status === "모집 중";
+    if (activeTab === "upcoming") return bootcamp.status === "모집 예정";
+    if (activeTab === "popular") return true;
+    return true;
+  }).sort((a, b) => {
+    if (activeTab === "popular") return b.popularity - a.popularity;
+    return 0;
+  });
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -86,10 +114,47 @@ const Index = () => {
       <section className="px-4 sm:px-6 lg:px-8 pb-16">
         <div className="max-w-7xl mx-auto">
           <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
-            인기 부트캠프
+            부트캠프 둘러보기
           </h3>
+          
+          {/* Tab Navigation */}
+          <div className="flex justify-center mb-8">
+            <div className="flex bg-gray-100 rounded-lg p-1">
+              <button
+                onClick={() => setActiveTab("recruiting")}
+                className={`px-6 py-2 rounded-md transition-all duration-200 ${
+                  activeTab === "recruiting"
+                    ? "bg-white text-blue-600 shadow-sm font-semibold"
+                    : "text-gray-600 hover:text-gray-900"
+                }`}
+              >
+                모집 중
+              </button>
+              <button
+                onClick={() => setActiveTab("upcoming")}
+                className={`px-6 py-2 rounded-md transition-all duration-200 ${
+                  activeTab === "upcoming"
+                    ? "bg-white text-blue-600 shadow-sm font-semibold"
+                    : "text-gray-600 hover:text-gray-900"
+                }`}
+              >
+                모집 예정
+              </button>
+              <button
+                onClick={() => setActiveTab("popular")}
+                className={`px-6 py-2 rounded-md transition-all duration-200 ${
+                  activeTab === "popular"
+                    ? "bg-white text-blue-600 shadow-sm font-semibold"
+                    : "text-gray-600 hover:text-gray-900"
+                }`}
+              >
+                인기순
+              </button>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {bootcamps.map((bootcamp) => (
+            {filteredBootcamps.map((bootcamp) => (
               <Card 
                 key={bootcamp.id} 
                 className="hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
@@ -142,20 +207,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="bg-white py-16">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h3 className="text-3xl font-bold text-gray-900 mb-4">
-            지금 바로 시작하세요
-          </h3>
-          <p className="text-lg text-gray-600 mb-8">
-            부트캠프 합격까지, 동료들과 함께라면 더욱 확실합니다
-          </p>
-          <Button size="lg" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700">
-            첫 스터디 만들기
-          </Button>
-        </div>
-      </section>
     </div>
   );
 };
