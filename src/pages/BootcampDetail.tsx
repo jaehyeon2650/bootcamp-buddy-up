@@ -33,8 +33,11 @@ const [stageFilter, setStageFilter] = useState("전체");
       stage: "코딩테스트",
       participants: 3,
       maxParticipants: 4,
-      status: "active",
-      nextSession: "19:00"
+      status: "recruiting",
+      nextSession: "19:00",
+      hostId: "u999",
+      applicants: ["u123"],
+      members: ["u999", "u456"]
     },
     {
       id: "room2", 
@@ -42,17 +45,23 @@ const [stageFilter, setStageFilter] = useState("전체");
       stage: "면접",
       participants: 2,
       maxParticipants: 4,
-      status: "waiting",
-      nextSession: "20:30"
+      status: "recruiting",
+      nextSession: "20:30",
+      hostId: "u777",
+      applicants: ["u555"],
+      members: ["u777"]
     },
     {
       id: "room3",
       title: "자기소개서 첨삭 스터디",
       stage: "자기소개서",
-      participants: 1,
+      participants: 2,
       maxParticipants: 3,
-      status: "waiting",
-      nextSession: "18:00"
+      status: "confirmed",
+      nextSession: "18:00",
+      hostId: "u888",
+      applicants: [],
+      members: ["u888", "u123"]
     },
     {
       id: "room4",
@@ -60,8 +69,11 @@ const [stageFilter, setStageFilter] = useState("전체");
       stage: "코딩테스트",
       participants: 4,
       maxParticipants: 4,
-      status: "active",
-      nextSession: "20:00"
+      status: "confirmed",
+      nextSession: "20:00",
+      hostId: "u333",
+      applicants: [],
+      members: ["u333", "u444", "u555", "u666"]
     }
   ];
 
@@ -92,11 +104,16 @@ const [stageFilter, setStageFilter] = useState("전체");
 
   const currentBootcamp = bootcampData[id] || bootcampData.woowa;
 
-  const joinStudyRoom = (roomId: string, roomTitle: string) => {
-    console.log(`Joining room: ${roomId}`);
-    toast.success(`${roomTitle} 스터디룸에 참여했습니다!`);
-    // 3명 이상이면 채팅방으로 이동
-    navigate(`/chatroom/${roomId}`);
+  const applyStudyRoom = (roomId: string, roomTitle: string) => {
+    console.log(`Applying to room: ${roomId}`);
+    toast.success(`${roomTitle} 스터디룸에 신청했습니다!`);
+    // 실제로는 서버에 신청 요청을 보내고 상태를 업데이트
+  };
+
+  const approveApplicant = (roomId: string, applicantId: string) => {
+    console.log(`Approving applicant ${applicantId} for room ${roomId}`);
+    toast.success("신청자를 승인했습니다!");
+    // 실제로는 서버에 승인 요청을 보내고 상태를 업데이트
   };
 
   const createStudyRoom = (stage: string) => {
@@ -192,8 +209,8 @@ const [stageFilter, setStageFilter] = useState("전체");
                           <Badge variant="outline" className="mt-1">{room.stage}</Badge>
                         </CardDescription>
                       </div>
-                      <Badge variant={room.status === 'active' ? 'default' : 'secondary'}>
-                        {room.status === 'active' ? '진행중' : '대기중'}
+                      <Badge variant={room.status === 'confirmed' ? 'default' : room.status === 'recruiting' ? 'secondary' : 'outline'}>
+                        {room.status === 'confirmed' ? '모집 종료' : room.status === 'recruiting' ? '모집 중' : '대기중'}
                       </Badge>
                     </div>
                   </CardHeader>
@@ -208,13 +225,46 @@ const [stageFilter, setStageFilter] = useState("전체");
                         다음 세션 {room.nextSession}
                       </span>
                     </div>
-                    <Button 
-                      className="w-full" 
-                      onClick={() => joinStudyRoom(room.id, room.title)}
-                      disabled={room.participants >= room.maxParticipants}
-                    >
-                      {room.participants >= room.maxParticipants ? '정원 마감' : '참여하기'}
-                    </Button>
+                    {room.status === 'confirmed' ? (
+                      <Button className="w-full" disabled>
+                        모집 완료
+                      </Button>
+                    ) : room.status === 'recruiting' ? (
+                      <div className="space-y-2">
+                        <Button 
+                          className="w-full" 
+                          onClick={() => applyStudyRoom(room.id, room.title)}
+                          disabled={room.applicants.includes("u123")}
+                        >
+                          {room.applicants.includes("u123") ? '신청 완료' : '신청하기'}
+                        </Button>
+                        {room.hostId === "u999" && room.applicants.length > 0 && (
+                          <div className="text-sm text-gray-600">
+                            <p className="mb-1">신청자 목록:</p>
+                            {room.applicants.map((applicantId) => (
+                              <div key={applicantId} className="flex justify-between items-center">
+                                <span>{applicantId}</span>
+                                <Button 
+                                  size="sm" 
+                                  variant="outline"
+                                  onClick={() => approveApplicant(room.id, applicantId)}
+                                >
+                                  승인
+                                </Button>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <Button 
+                        className="w-full" 
+                        onClick={() => applyStudyRoom(room.id, room.title)}
+                        disabled={room.participants >= room.maxParticipants}
+                      >
+                        {room.participants >= room.maxParticipants ? '정원 마감' : '신청하기'}
+                      </Button>
+                    )}
                   </CardContent>
                 </Card>
               ))}

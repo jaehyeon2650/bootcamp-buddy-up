@@ -24,7 +24,7 @@ const Profile = () => {
       stage: "코딩테스트",
       participants: 3,
       maxParticipants: 4,
-      status: "active",
+      status: "confirmed",
       nextSession: "19:00",
       bootcampName: "우아한테크코스"
     },
@@ -32,9 +32,9 @@ const Profile = () => {
       id: "room3",
       title: "자기소개서 첨삭 스터디",
       stage: "자기소개서",
-      participants: 2,
+      participants: 3,
       maxParticipants: 3,
-      status: "waiting",
+      status: "confirmed",
       nextSession: "18:00",
       bootcampName: "우아한테크코스"
     }
@@ -65,7 +65,7 @@ const Profile = () => {
   };
 
   const enterCoffeeChat = (chatId: string) => {
-    navigate(`/coffeechat/${chatId}`);
+    navigate(`/coffeechat-room/${chatId}`);
   };
 
   return (
@@ -110,8 +110,8 @@ const Profile = () => {
                           <span className="ml-2 text-sm">{room.bootcampName}</span>
                         </CardDescription>
                       </div>
-                      <Badge variant={room.status === 'active' ? 'default' : 'secondary'}>
-                        {room.status === 'active' ? '진행중' : '대기중'}
+                      <Badge variant="default">
+                        확정
                       </Badge>
                     </div>
                   </CardHeader>

@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import BootcampDetail from "./pages/BootcampDetail";
 import ChatRoom from "./pages/ChatRoom";
+import CoffeeChatRoom from "./pages/CoffeeChatRoom";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/bootcamp/:id" element={<BootcampDetail />} />
           <Route path="/chatroom/:roomId" element={<ChatRoom />} />
+          <Route path="/coffeechat-room/:chatId" element={<CoffeeChatRoom />} />
           <Route path="/profile" element={<Profile />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
